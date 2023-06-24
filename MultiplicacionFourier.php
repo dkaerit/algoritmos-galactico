@@ -1,6 +1,6 @@
 <?php
 
-// Clase derivada: Multiplicación de enteros usando el teorema de Fourier
+// Clase derivada: Multiplicación de enteros usando el teorema de Fourier.
 class MultiplicacionFourier extends AlgoritmoGalactico {
     public function ejecutar() {
         // Lógica específica del algoritmo de multiplicación de enteros usando Fourier
