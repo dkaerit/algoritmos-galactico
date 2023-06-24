@@ -1,30 +1,47 @@
 <?php
 
+require_once('AlgoritmoGalactico.php');
+require_once('MultiplicacionFourier.php');
+require_once('MultiplicacionStrassen.php');
+require_once('CanalComunicacionShannon.php');
+
 // Función principal
 function main() {
     // Menú de opciones
+    $opciones = [
+        1 => [
+            'nombre' => 'Multiplicación de enteros (T. Fourier)',
+            'clase' => 'MultiplicacionFourier',
+        ],
+        2 => [
+            'nombre' => 'Multiplicación de matrices (Alg. Strassen)',
+            'clase' => 'MultiplicacionStrassen',
+        ],
+        3 => [
+            'nombre' => 'Canal de comunicación (Claude Shannon)',
+            'clase' => 'CanalComunicacionShannon',
+        ],
+    ];
+
     echo "Seleccione un algoritmo galáctico:\n";
-    echo "1. Multiplicación de enteros usando el teorema de Fourier\n";
-    echo "2. Multiplicación de matrices con el algoritmo de Strassen\n";
-    echo "3. Canal de comunicación de Claude Shannon\n";
+    foreach ($opciones as $opcion => $data) {
+        echo "$opcion. " . $data['nombre'] . "\n";
+    }
 
     // Obtener la opción del usuario
     $opcion = readline("Ingrese el número de opción: ");
 
-    // Incluir el archivo correspondiente al algoritmo seleccionado
-    if ($opcion == 1) {
-        require_once('MultiplicacionFourier.php');
-        $algoritmo = new MultiplicacionFourier();
-    } elseif ($opcion == 2) {
-        require_once('MultiplicacionStrassen.php');
-        $algoritmo = new MultiplicacionStrassen();
-    } elseif ($opcion == 3) {
-        require_once('CanalComunicacionShannon.php');
-        $algoritmo = new CanalComunicacionShannon();
-    } else {
+    // Validar la opción ingresada
+    if (!isset($opciones[$opcion])) {
         echo "Opción inválida. Saliendo...\n";
         return;
     }
+
+    // Obtener el nombre de la clase del algoritmo seleccionado
+    $nombreClase = $opciones[$opcion]['clase'];
+
+    // Crear una instancia del algoritmo seleccionado
+    $algoritmo = new $nombreClase();
 
     // Ejecutar el algoritmo seleccionado
     $algoritmo->ejecutar();
